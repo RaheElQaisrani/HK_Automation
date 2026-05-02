@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HK Automation | Smart Home Safety</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
+
+        .page-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 80px; 
+            padding-bottom: 40px;
+        }
+
+        /* Premium Card Animations */
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer; /* Indicates it is clickable */
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .product-img {
+            width: 100%;
+            aspect-ratio: 1 / 1; 
+            object-fit: contain; 
+            background-color: #ffffff;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Horizontal Scroll Magic Styling */
+        .scroll-trigger-section {
+            height: 400vh; /* Makes the section very tall so we can scroll down for a long time */
+            position: relative;
+        }
+        .sticky-container {
+            position: sticky;
+            top: 0;
+            height: 100vh; /* Locks to the screen height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden; /* Hides the native horizontal scrollbar */
+            background-color: #f8f9fa;
+        }
+        .timeline-track {
+            display: flex;
+            gap: 2rem;
+            padding: 0 5vw;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .timeline-card {
+            flex: 0 0 350px; 
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            border-top: 5px solid #0d6efd; 
+        }
+        .timeline-card.future {
+            border-top: 5px dashed #6c757d; 
+            background-color: #ffffff;
+        }
+        .timeline-img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #e9ecef;
+        }
+
+        /* Profile Styling */
+        .profile-img {
+            width: 200px; height: 200px; object-fit: cover;
+            border: 4px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#home">
+                <img src="images/logo.png" alt="HK Automation Logo" height="40" class="me-2" style="background-color: #eee;">
+                <span class="fw-bold text-primary">HK Automation</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto fw-semibold">
+                    <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#achievements">Roadmap</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#opportunity">Investment</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="page-section bg-dark text-white text-center">
+        <div class="container mt-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6 text-lg-start mb-4 mb-lg-0">
+                    <h2 class="text-primary fw-bold tracking-wide">THE FUTURE OF HOME SAFETY</h2>
+                    <h1 class="display-4 fw-bold mb-4">Automating Peace of Mind.</h1>
+                    <p class="lead text-light mb-4">HK Automation creates intelligent, integrated systems that detect gas leaks and suppress fires automatically—before disaster strikes.</p>
+                    <a href="#products" class="btn btn-primary btn-lg me-2">View Technology</a>
+                </div>
+                <div class="col-lg-6">
+                    <video autoplay loop muted playsinline class="w-100 rounded-4 shadow-lg border border-secondary" style="background-color: #222;">
+                        <source src="images/animated-demo.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="page-section bg-light">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-2">Our Automated Ecosystem</h2>
+            <p class="text-center mb-5 text-muted lead">Scalable safety solutions for modern living. Click for details.</p>
+            
+            <div class="row g-4">
+                <!-- Product 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <!-- Note the extra data-details attribute added here -->
+                    <div class="card product-card h-100 border-0 bg-white" data-bs-toggle="modal" data-bs-target="#orderModal" 
+                         data-product="Smart Gas Detector" 
+                         data-price="PKR 55,000"
+                         data-details="Our state-of-the-art gas detector continuously monitors your home's air quality. Calibrated specifically to detect LPG and natural gas leaks, it features a 99.9% accuracy rate. Upon detection, it instantly triggers an audible alarm and sends a push notification to your mobile device, allowing you to react from anywhere in the world.">
+                        <img src="images/gas-detector.jpg" class="product-img" alt="Gas Detector">
+                        <div class="card-body d-flex flex-column text-center">
+                            <h4 class="card-title fw-bold">Smart Gas Detector</h4>
+                            <p class="card-text text-muted flex-grow-1">Comprehensive whole-home coverage. Detects anomalies in milliseconds.</p>
+                            <span class="btn btn-primary w-100 mt-3">View Details & Order</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card product-card h-100 border-0 bg-white" data-bs-toggle="modal" data-bs-target="#orderModal" 
+                         data-product="Auto Fire Extinguisher" 
+                         data-price="PKR 95,000"
+                         data-details="Designed for high-risk areas like kitchens and server rooms. This automated unit is equipped with thermal sensors. If the ambient temperature crosses a critical threshold indicating an active fire, the system autonomously deploys eco-friendly, non-toxic fire suppressant powder to instantly smother the flames before they can spread.">
+                        <img src="images/fire-extinguisher.jpg" class="product-img" alt="Fire Extinguisher">
+                        <div class="card-body d-flex flex-column text-center">
+                            <h4 class="card-title fw-bold">Auto Fire Extinguisher</h4>
+                            <p class="card-text text-muted flex-grow-1">Deploys automatically to suppress localized fires instantly.</p>
+                            <span class="btn btn-primary w-100 mt-3">View Details & Order</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="card product-card h-100 border-0 bg-white" data-bs-toggle="modal" data-bs-target="#orderModal" 
+                         data-product="Automated Mist System" 
+                         data-price="PKR 68,000"
+                         data-details="An elegant solution for wider coverage. Unlike traditional sprinklers that cause massive water damage, our mist system atomizes water into ultra-fine droplets. This rapidly cools the room, suppresses fire, and clears toxic smoke from the air, preserving your property and giving occupants safe breathing conditions during evacuation.">
+                        <img src="images/automated-mist.jpg" class="product-img" alt="Automated Mist System">
+                        <div class="card-body d-flex flex-column text-center">
+                            <h4 class="card-title fw-bold">Automated Mist System</h4>
+                            <p class="card-text text-muted flex-grow-1">Advanced water-mist technology that cools environments and clears smoke.</p>
+                            <span class="btn btn-primary w-100 mt-3">View Details & Order</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap / Achievements (Vertical scroll controls Horizontal move) -->
+    <section id="achievements" class="scroll-trigger-section">
+        <div class="sticky-container">
+            <div class="container text-center mb-4">
+                <h2 class="fw-bold">Our Journey & Roadmap</h2>
+                <p class="text-muted">Keep scrolling down to explore our timeline.</p>
+            </div>
+            
+            <!-- This track will slide to the left via JavaScript -->
+            <div class="timeline-track" id="timelineTrack">
+                
+                <!-- Milestones -->
+                <div class="timeline-card"><img src="images/timeline-1.jpg" class="timeline-img"><h5 class="fw-bold">Concept & Founding</h5><p class="text-primary fw-bold"><i class="bi bi-calendar-event me-2"></i> 2021</p></div>
+                <div class="timeline-card"><img src="images/timeline-2.jpg" class="timeline-img"><h5 class="fw-bold">First Prototype: Gas Detector</h5><p class="text-primary fw-bold"><i class="bi bi-calendar-event me-2"></i> March 2022</p></div>
+                <div class="timeline-card"><img src="images/timeline-3.jpg" class="timeline-img"><h5 class="fw-bold">First Successful Installations</h5><p class="text-primary fw-bold"><i class="bi bi-calendar-event me-2"></i> September 2022</p></div>
+                <div class="timeline-card"><img src="images/timeline-4.jpg" class="timeline-img"><h5 class="fw-bold">Won PM Innovation Award</h5><p class="text-primary fw-bold"><i class="bi bi-calendar-event me-2"></i> March 2023</p></div>
+                <div class="timeline-card"><img src="images/timeline-5.jpg" class="timeline-img"><h5 class="fw-bold">Won IBA Innovation Award</h5><p class="text-primary fw-bold"><i class="bi bi-calendar-event me-2"></i> May 2023</p></div>
+                <div class="timeline-card"><img src="images/timeline-6.jpg" class="timeline-img"><h5 class="fw-bold">Added Fire & Mist Systems</h5><p class="text-primary fw-bold"><i class="bi bi-calendar-event me-2"></i> October 2024</p></div>
+                <div class="timeline-card border-primary" style="border-width: 5px;"><img src="images/timeline-7.jpg" class="timeline-img"><h5 class="fw-bold">100+ Installations</h5><p class="text-primary fw-bold"><i class="bi bi-calendar-event me-2"></i> June 2025</p></div>
+                <div class="timeline-card bg-primary text-white"><img src="images/timeline-8.jpg" class="timeline-img"><h5 class="fw-bold text-white">Won Balochistan Innovation Award</h5><p class="text-light fw-bold"><i class="bi bi-calendar-event me-2"></i> January 2026</p></div>
+                <div class="timeline-card future"><img src="images/timeline-9.jpg" class="timeline-img"><h5 class="fw-bold text-secondary">More Automation Products</h5><p class="text-secondary fw-bold"><i class="bi bi-rocket-takeoff me-2"></i> Future Plan</p></div>
+                <div class="timeline-card future"><img src="images/timeline-10.jpg" class="timeline-img"><h5 class="fw-bold text-secondary">Expanding Outside Quetta</h5><p class="text-secondary fw-bold"><i class="bi bi-globe me-2"></i> Future Plan</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="page-section">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Leadership</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-lg p-4 p-md-5 rounded-4 bg-white">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 text-center mb-4 mb-md-0">
+                                <img src="images/abdul-hafiz.jpg" alt="Abdul Hafiz" class="rounded-circle profile-img mb-3" style="background-color: #ccc;">
+                            </div>
+                            <div class="col-md-8">
+                                <h2 class="fw-bold mb-1">Abdul Hafiz</h2>
+                                <h5 class="text-primary fw-bold mb-3">Co-Founder & Lead Engineer</h5>
+                                <p class="mb-3 text-dark">
+                                    <i class="bi bi-briefcase-fill text-primary me-2"></i> 
+                                    <strong>Experience:</strong> 8+ years specializing in automated sensor networks and hardware engineering. Led development from initial breadboard prototypes to market-ready residential safety ecosystems.
+                                </p>
+                                <p class="text-muted fst-italic">"Our vision is a world where fire and gas disasters are stopped before humans even realize they started."</p>
+                                <hr>
+                                <div class="d-flex flex-column gap-2 mt-3">
+                                    <a href="mailto:abdul@hkautomation.com" class="text-decoration-none text-dark fw-semibold">
+                                        <i class="bi bi-envelope-fill text-primary me-2"></i> abdul@hkautomation.com
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investor / Market Opportunity Section (Moved to End) -->
+    <section id="opportunity" class="py-5 bg-dark text-white">
+        <div class="container text-center my-5">
+            <h2 class="fw-bold text-primary mb-4">Why Partner With HK Automation?</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <p class="lead">The smart home safety market is growing exponentially. By transitioning from reactive safety (standard alarms) to <strong>proactive automation</strong> (instant suppression), we are capturing a highly unserved sector of the residential and commercial real estate market. We are actively seeking strategic partnerships to scale operations out of Quetta.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer & Contact Section -->
+    <footer class="bg-black text-white py-5 border-top border-secondary">
+        <div class="container text-center">
+            <h3 class="fw-bold mb-4">Contact HK Automation</h3>
+            <p class="text-light mb-4">Ready to secure your home or discuss investment opportunities? Reach out to us.</p>
+            
+            <div class="d-flex justify-content-center gap-4 flex-wrap mb-5">
+                <!-- Clickable Phone -->
+                <a href="tel:+923001234567" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                    <i class="bi bi-telephone-fill text-primary me-2"></i> +92 300 1234567
+                </a>
+                <!-- Clickable Email -->
+                <a href="mailto:info@hkautomation.com" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                    <i class="bi bi-envelope-fill text-primary me-2"></i> info@hkautomation.com
+                </a>
+                <!-- Location -->
+                <span class="btn btn-outline-secondary btn-lg rounded-pill px-4" style="pointer-events: none;">
+                    <i class="bi bi-geo-alt-fill text-primary me-2"></i> Quetta, Pakistan
+                </span>
+            </div>
+            
+            <p class="mb-0 text-secondary">&copy; 2026 HK Automation. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ORDER POP-UP MODAL -->
+    <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title fw-bold" id="orderModalLabel">Product Details & Ordering</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 p-md-5">
+                    <div class="text-center mb-4">
+                        <h2 id="modalProductName" class="fw-bold text-dark mb-2">Product Name</h2>
+                        <h3 id="modalProductPrice" class="text-success fw-bold">Price</h3>
+                    </div>
+                    
+                    <div class="bg-light p-4 rounded-3 mb-4">
+                        <h5 class="fw-bold mb-3">About this System:</h5>
+                        <!-- Detailed text will be injected here -->
+                        <p id="modalProductDetails" class="text-muted" style="line-height: 1.7;"></p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h5 class="fw-bold mb-3">To Proceed With Your Order:</h5>
+                        <p class="text-muted mb-4">Tap the buttons below to contact our sales team directly. We will confirm your location and arrange installation.</p>
+                        
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                            <a href="mailto:sales@hkautomation.com?subject=New Order Inquiry" class="btn btn-primary btn-lg px-4 gap-3">
+                                <i class="bi bi-envelope-fill me-2"></i> Email Us
+                            </a>
+                            <a href="tel:+923001234567" class="btn btn-dark btn-lg px-4">
+                                <i class="bi bi-telephone-fill me-2"></i> Call Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap & JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script for Dynamic Modal & Timeline Scroll Magic -->
+    <script>
+        // 1. DYNAMIC MODAL LOGIC
+        const orderModal = document.getElementById('orderModal');
+        orderModal.addEventListener('show.bs.modal', function (event) {
+            // Find the card that triggered the modal
+            const card = event.relatedTarget;
+            
+            // Extract the info
+            const productName = card.getAttribute('data-product');
+            const productPrice = card.getAttribute('data-price');
+            const productDetails = card.getAttribute('data-details'); // New details attribute
+            
+            // Inject into the modal
+            document.getElementById('modalProductName').textContent = productName;
+            document.getElementById('modalProductPrice').textContent = productPrice;
+            document.getElementById('modalProductDetails').textContent = productDetails;
+        });
+
+        // 2. HORIZONTAL SCROLL TIMELINE LOGIC
+        window.addEventListener('scroll', () => {
+            const section = document.querySelector('.scroll-trigger-section');
+            const track = document.getElementById('timelineTrack');
+            
+            // Get dimensions
+            const rect = section.getBoundingClientRect();
+            const sectionTop = rect.top; // Distance from top of viewport
+            const sectionHeight = rect.height; // 400vh
+            const windowHeight = window.innerHeight; // 100vh
+            
+            // The scrollable distance is the section height minus the screen height
+            const scrollableDistance = sectionHeight - windowHeight;
+            
+            // Calculate how far the track needs to slide horizontally
+            // It needs to slide its entire width, minus the width of the screen so it stops at the end
+            const maxTranslate = track.scrollWidth - window.innerWidth + 100; // +100 for some padding at the end
+            
+            // If the top of the section hits the top of the screen...
+            if (sectionTop <= 0 && sectionTop > -scrollableDistance) {
+                // Calculate percentage scrolled
+                let scrollPercentage = Math.abs(sectionTop) / scrollableDistance;
+                
+                // Move the track left based on the percentage
+                track.style.transform = `translateX(-${maxTranslate * scrollPercentage}px)`;
+            } 
+            // Reset if scrolled above the section
+            else if (sectionTop > 0) {
+                track.style.transform = `translateX(0px)`;
+            } 
+            // Lock to end if scrolled past the section
+            else {
+                track.style.transform = `translateX(-${maxTranslate}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
